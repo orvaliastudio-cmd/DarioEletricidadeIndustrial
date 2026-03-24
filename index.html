@@ -1,16 +1,1001 @@
-<!doctype html>
-<html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dario Eletricidade Industrial | Engenharia e Manutenção</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    
+    <!-- Icons (Lucide CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- Design System & Variables --- */
+        :root {
+            --primary: #FF6B00;
+            --primary-hover: #E66000;
+            --deep-navy: #0B192C;
+            --surface: #f9f9ff;
+            --surface-container: #e7eeff;
+            --surface-container-low: #f0f3ff;
+            --surface-container-high: #dee8ff;
+            --surface-container-lowest: #ffffff;
+            --on-surface: #0e1c2f;
+            --on-surface-variant: #44474c;
+            --white: #ffffff;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-950: #020617;
+            
+            --font-headline: 'Manrope', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--surface);
+            color: var(--on-surface);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-headline);
+            line-height: 1.1;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* --- Components --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.025em;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 10px 15px -3px rgba(255, 107, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.25rem 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(11, 25, 44, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 0.75rem 0;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--white);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1.25rem;
+            font-family: var(--font-headline);
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            color: var(--slate-300);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .mobile-toggle {
+            display: block;
+            color: var(--white);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+
+        /* --- Hero --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--deep-navy);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--deep-navy) 0%, rgba(11, 25, 44, 0.8) 50%, transparent 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid rgba(255, 107, 0, 0.2);
+            color: var(--primary);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .dot::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--primary);
+            border-radius: 50%;
+            animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes ping {
+            75%, 100% { transform: scale(2); opacity: 0; }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 4.5rem; }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--slate-300);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-btns { flex-direction: row; }
+        }
+
+        /* --- Trust Bar --- */
+        .trust-bar {
+            background-color: var(--surface-container-low);
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(14, 28, 47, 0.05);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .trust-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.75rem;
+        }
+
+        .trust-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background-color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .trust-item span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--on-surface-variant);
+        }
+
+        /* --- Services --- */
+        .services {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 span {
+            color: var(--primary);
+        }
+
+        .section-header p {
+            color: var(--on-surface-variant);
+            font-size: 1.125rem;
+            max-width: 600px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .service-card {
+            background-color: var(--surface-container-lowest);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 25px 50px -12px rgba(11, 25, 44, 0.05);
+            border-bottom-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .service-card i {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--on-surface-variant);
+            font-size: 0.875rem;
+        }
+
+        /* --- Testimonials --- */
+        .testimonials {
+            padding: 6rem 0;
+            background-color: var(--surface-container);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .testimonial-card {
+            background-color: var(--surface-container-lowest);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            opacity: 0.1;
+            color: var(--on-surface);
+        }
+
+        .stars {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.125rem;
+            color: var(--on-surface-variant);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: var(--slate-300);
+        }
+
+        .author-info h4 {
+            font-weight: 700;
+        }
+
+        .author-info p {
+            font-size: 0.875rem;
+            color: var(--on-surface-variant);
+        }
+
+        /* --- Contact --- */
+        .contact {
+            padding: 6rem 0;
+        }
+
+        .contact-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        @media (min-width: 1024px) {
+            .contact-flex { flex-direction: row; }
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info h2 span { color: var(--primary); }
+
+        .contact-info p {
+            font-size: 1.125rem;
+            color: var(--on-surface-variant);
+            margin-bottom: 3rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(255, 107, 0, 0.1);
+            color: var(--primary);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-text span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--on-surface-variant);
+        }
+
+        .info-text strong {
+            font-size: 1.25rem;
+            display: block;
+        }
+
+        .contact-form-container {
+            flex: 1;
+            background-color: var(--surface-container-high);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(11, 25, 44, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--on-surface-variant);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid transparent;
+            background-color: var(--surface-container-low);
+            font-family: inherit;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--slate-950);
+            color: var(--slate-400);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-col p { font-size: 0.875rem; margin-bottom: 1.5rem; }
+
+        .footer-links li { margin-bottom: 0.75rem; }
+
+        .footer-links a {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover { color: var(--primary); }
+
+        .footer-links .dot-small {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        /* --- FAB --- */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 4rem;
+            height: 4rem;
+            background-color: #25D366;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .fab:hover { transform: scale(1.1); }
+
+        /* --- Mobile Menu Overlay --- */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-navy);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active { display: flex; }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav a {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i data-lucide="zap"></i>
+                Dario Eletricidade
+            </a>
+            <nav class="nav-links">
+                <a href="#servicos">Serviços</a>
+                <a href="#certificacoes">Certificações</a>
+                <a href="#depoimentos">Clientes</a>
+                <a href="#contato" class="btn btn-primary">Solicitar Orçamento</a>
+            </nav>
+            <button class="mobile-toggle" id="menu-open">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <i data-lucide="zap"></i>
+                Dario Eletricidade
+            </div>
+            <button class="mobile-toggle" id="menu-close">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <a href="#servicos">Serviços</a>
+            <a href="#certificacoes">Certificações</a>
+            <a href="#depoimentos">Clientes</a>
+            <a href="#contato" class="btn btn-primary">Solicitar Orçamento</a>
+        </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqHyr_Pc6Rp_b5Fj-D-YPiwFDN2h1jj9P0ItKU0KYZ3sb-1YoxUo8cwsdn-sWovUlU0C1EYg-WoHVufy5fhL1pdzkzd-pwNtUV76bJY5mGBWqiM5LX-CBa7eNsMKsegXc0PAhjRQm05Isb5uQTQDgsOqPngfqowi9ka5w4YdkBSDoc2ZopaLL420jFQzvT7VZjQhpV41W_C5Xfi_X_mEohmC4QtnFQ9eD2kA1N7n_g71FwFO_7qoZL8vfSmo_6tvrt62s47qIFcrM" alt="Painel Elétrico Industrial" referrerPolicy="no-referrer">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="dot"></span>
+                    Disponibilidade 24h para Emergências
+                </div>
+                <h1>PROBLEMAS ELÉTRICOS EM SUA INDÚSTRIA? <span>RESOLVEMOS AGORA.</span></h1>
+                <p>Especialistas em manutenção preditiva e performance técnica. Garantimos a continuidade operacional da sua planta com engenharia elétrica de alta precisão.</p>
+                <div class="hero-btns">
+                    <a href="https://wa.me/5519997869520" class="btn btn-primary">
+                        Orçamento via WhatsApp
+                        <i data-lucide="arrow-right" style="margin-left: 0.5rem;"></i>
+                    </a>
+                    <a href="#servicos" class="btn btn-outline">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar" id="certificacoes">
+        <div class="container trust-grid">
+            <div class="trust-item">
+                <div class="trust-icon"><i data-lucide="shield-check"></i></div>
+                <span>NR-10 Certificada</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon"><i data-lucide="arrow-up-circle"></i></div>
+                <span>NR-35 Altura</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon"><i data-lucide="clock"></i></div>
+                <span>Atendimento 24h</span>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon"><i data-lucide="hard-hat"></i></div>
+                <span>Qualidade Expert</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="servicos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Engenharia Elétrica de <span>Elite</span></h2>
+                <p>Soluções completas para infraestrutura industrial, do projeto à manutenção crítica.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i data-lucide="bar-chart-3" size="40"></i>
+                    <h3>Manutenção Preditiva</h3>
+                    <p>Antecipamos falhas com análise termográfica e testes de isolamento para evitar paradas não programadas.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="settings" size="40"></i>
+                    <h3>Comandos Elétricos</h3>
+                    <p>Projetos e manutenção de sistemas de comando complexos para controle total de sua linha de produção.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="cpu" size="40"></i>
+                    <h3>Automação Industrial</h3>
+                    <p>Integração de CLPs e sensores para otimizar processos e reduzir custos operacionais.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="zap" size="40"></i>
+                    <h3>Instalações Técnicas</h3>
+                    <p>Execução de infraestrutura elétrica em baixa e média tensão com rigorosa segurança normativa.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="layout-grid" size="40"></i>
+                    <h3>Montagem de Painéis</h3>
+                    <p>Montagem técnica de QGBTs seguindo os mais altos padrões de organização e segurança.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="wrench" size="40"></i>
+                    <h3>Reparo de Falhas</h3>
+                    <p>Diagnóstico rápido e reparo especializado em motores, inversores e sistemas eletromecânicos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-left: auto; margin-right: auto;">
+                <h2>Confiança de quem decide</h2>
+                <p>Líderes industriais que escolheram a precisão do Dario.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i data-lucide="quote" class="quote-icon" size="64"></i>
+                    <div class="stars">
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <p class="testimonial-text">"O atendimento do Dario é impecável. Em uma emergência de painel no turno da noite, eles chegaram rápido e resolveram o problema. Parceiros essenciais."</p>
+                    <div class="testimonial-author">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlYLSVFlVz60qj3hQv-zcjTKb6wP7o_OxjY2xtJ_gYjD3te_80RXiTgwso3Y3ZYiIprM4djYhGwEoXSRl0ATWEJY1MJ4xkKVewNCxdlZXOW17MzsL42CXqeoGH5hFPNC2ec5UqG15aYGAbySAp_qyhCAG8F9PJ6KRHdWk_cJeAisYo5Nc1FVNWqdTSlGXSqIApYCQFoTzaJ805qhpFMkGqc05FH9TAnsUxEmE7mfKdsBTvW8D4cVWvHpL6pGLjZBDIWvEIX9biPc4" alt="Ricardo Mendes" class="author-img" referrerPolicy="no-referrer">
+                        <div class="author-info">
+                            <h4>Ricardo Mendes</h4>
+                            <p>Gerente de Operações - Logística Br</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i data-lucide="quote" class="quote-icon" size="64"></i>
+                    <div class="stars">
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                        <i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <p class="testimonial-text">"Adequamos toda nossa planta às normas NR-10 e NR-35 com a assessoria do Dario. Profissionalismo raro no mercado, com documentação clara."</p>
+                    <div class="testimonial-author">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWT9asQ58CC-CQTSjbPsQNHrMxf0z6cxEhWql6R_yNWX8wXsBIj0PDS7fvUBZ8daCHPQGHr2_NIfTz_eXI4wwTQOmL96OzmysqvKWnU7BXPGKKdVlERO5taTgKPBZCGWYSutC5qR7wQV2vDRfSp2TheJ8y-ysvSNxslF5bSp8Trn3pDZt8BaMikz7c0bfM-5riVaIc8hqMUI63BLSktqnSnwjeSPTpoMPWQ8I2i5uXw7erdfQdS5JNu929RpS_zgd9kfq91gpzFrs" alt="Sandra Oliveira" class="author-img" referrerPolicy="no-referrer">
+                        <div class="author-info">
+                            <h4>Sandra Oliveira</h4>
+                            <p>Diretora Técnica - Indústria Têxtil</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contato">
+        <div class="container">
+            <div class="contact-flex">
+                <div class="contact-info">
+                    <h2>Pronto para <span>Elevar</span> seu Padrão Elétrico?</h2>
+                    <p>Não arrisque sua produção com amadores. Contrate especialistas que entendem o ritmo da indústria.</p>
+                    <div class="info-item">
+                        <div class="info-icon"><i data-lucide="phone"></i></div>
+                        <div class="info-text">
+                            <span>Ligue agora</span>
+                            <strong>19 9.9786-9520</strong>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i data-lucide="mail"></i></div>
+                        <div class="info-text">
+                            <span>E-mail Técnico</span>
+                            <strong>contato@darioeletricidade.com.br</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <h3 style="margin-bottom: 2rem; font-size: 1.5rem;">Solicite seu Orçamento</h3>
+                    <form onsubmit="event.preventDefault(); alert('Solicitação enviada com sucesso!');">
+                        <div class="form-group">
+                            <label>Tipo de Serviço</label>
+                            <select>
+                                <option>Manutenção Preventiva</option>
+                                <option>Montagem de Painéis</option>
+                                <option>Automação Industrial</option>
+                                <option>Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nome da Empresa</label>
+                            <input type="text" placeholder="Ex: Indústria Metalúrgica Ltda">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp</label>
+                            <input type="tel" placeholder="(19) 00000-0000">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.25rem;">Enviar Solicitação</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <i data-lucide="zap"></i>
+                    Dario Eletricidade
+                </div>
+                <p>Expertise técnica e compromisso com a segurança em cada projeto industrial.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Serviços</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><span class="dot-small"></span>Manutenção</a></li>
+                    <li><a href="#"><span class="dot-small"></span>Painéis</a></li>
+                    <li><a href="#"><span class="dot-small"></span>Automação</a></li>
+                    <li><a href="#"><span class="dot-small"></span>Laudos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <p>19 9.9786-9520</p>
+                <p>Limeira - Piracicaba - Campinas & Região</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dario Eletricidade Industrial. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- FAB -->
+    <a href="https://wa.me/5519997869520" class="fab" target="_blank">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.258-.041.404.31.145.352.491 1.201.534 1.289.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"></path></svg>
+    </a>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Logic
+        const menuOpen = document.getElementById('menu-open');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+
+        menuOpen.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        const closeMenu = () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        menuClose.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+    </script>
+</body>
 </html>
 

@@ -1,10 +1,3 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+// Application moved to pure HTML/CSS in index.html for single-file portability.
+// This file is kept empty to satisfy Vite's entry point if needed, 
+// but the index.html no longer relies on it.
