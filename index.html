@@ -823,6 +823,76 @@
             color: var(--white);
         }
 
+        /* --- Modals --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 25, 44, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--white);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 1rem;
+            padding: 2rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--slate-400);
+            transition: color 0.3s ease;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            color: var(--primary);
+        }
+        .modal-body h2 {
+            margin-bottom: 1.5rem;
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+        }
+        .modal-body h3 {
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        .modal-body p, .modal-body ul {
+            font-size: 0.9rem;
+            color: var(--on-surface-variant);
+            margin-bottom: 1rem;
+        }
+        .modal-body ul {
+            padding-left: 1.5rem;
+        }
+
         /* --- Scroll Reveal Animations --- */
         .reveal {
             opacity: 0;
@@ -889,11 +959,7 @@
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="hero-content reveal">
-                <div class="badge">
-                    <span class="dot"></span>
-                    Atendimento: Seg a Sex 8h-17h | Sáb 8h-12h
-                </div>
-                <h1>PROBLEMAS ELÉTRICOS EM SUA INDÚSTRIA? <span>RESOLVEMOS AGORA.</span></h1>
+                <h1 style="margin-top: 3rem;">PROBLEMAS ELÉTRICOS EM SUA INDÚSTRIA? <span>RESOLVEMOS AGORA.</span></h1>
                 <p>Especialistas em manutenção preventiva e performance técnica. Garantimos a continuidade operacional da sua planta com engenharia elétrica de alta precisão.</p>
                 <div class="hero-btns">
                     <a href="https://wa.me/5519997869520" class="btn btn-primary">
@@ -1032,6 +1098,13 @@
                             <strong>19 9.9786-9520</strong>
                         </div>
                     </div>
+                    <div class="info-item" style="margin-top: 1.5rem;">
+                        <div class="info-icon"><i data-lucide="clock"></i></div>
+                        <div class="info-text">
+                            <span>Horário de Atendimento</span>
+                            <strong>Seg a Sex: 8h às 17h<br>Sábados: 8h às 12h</strong>
+                        </div>
+                    </div>
                 </div>
                 <div class="contact-form-container reveal delay-100">
                     <h3 style="margin-bottom: 2rem; font-size: 1.5rem;">Solicite seu Orçamento</h3>
@@ -1091,11 +1164,11 @@
             <p>&copy; 2026 Dario Eletricidade Industrial. Todos os direitos reservados.</p>
             <p>Site Desenvolvido por <a href="https://www.orvalia.com.br" target="_blank" rel="noopener noreferrer">Orvalia Studio</a></p>
             <div class="footer-legal">
-                <a href="#">Política de Privacidade</a>
+                <a href="#" onclick="openModal('modal-privacidade'); return false;">Política de Privacidade</a>
                 <span>|</span>
-                <a href="#">Termos de Uso</a>
+                <a href="#" onclick="openModal('modal-termos'); return false;">Termos de Uso</a>
                 <span>|</span>
-                <a href="#">Aviso Legal (LGPD)</a>
+                <a href="#" onclick="openModal('modal-lgpd'); return false;">Aviso Legal (LGPD)</a>
             </div>
         </div>
     </footer>
@@ -1108,6 +1181,63 @@
         <a href="https://wa.me/5519997869520" class="fab fab-whatsapp" target="_blank" aria-label="Contato WhatsApp">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.258-.041.404.31.145.352.491 1.201.534 1.289.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"></path></svg>
         </a>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-privacidade">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-privacidade')"><i data-lucide="x"></i></button>
+            <div class="modal-body">
+                <h2>Política de Privacidade</h2>
+                <h3>Introdução</h3>
+                <p>Esta Política de Privacidade descreve como coletamos e utilizamos suas informações quando você utiliza nossos serviços ou entra em contato através deste site.</p>
+                <h3>Coleta de Dados</h3>
+                <p>Coletamos apenas os dados necessários para o atendimento comercial, como Nome, E-mail, Telefone/WhatsApp e Nome da Empresa, fornecidos voluntariamente por você através de nossos canais de contato.</p>
+                <h3>Finalidade</h3>
+                <p>Os dados coletados são utilizados exclusivamente para:</p>
+                <ul>
+                    <li>Elaboração de orçamentos técnicos de manutenção industrial;</li>
+                    <li>Agendamento de visitas presenciais;</li>
+                    <li>Comunicação direta sobre o andamento de serviços contratados.</li>
+                </ul>
+                <h3>Compartilhamento e Segurança</h3>
+                <p>Não compartilhamos, vendemos ou alugamos seus dados para terceiros. Seus dados são armazenados em ambiente seguro e utilizados apenas para a finalidade descrita.</p>
+                <h3>Seus Direitos</h3>
+                <p>De acordo com a LGPD, você pode solicitar a qualquer momento a alteração ou exclusão definitiva de seus dados de nossa base de contatos, enviando um e-mail para contato@darioeletricidade.com.br.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-termos">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-termos')"><i data-lucide="x"></i></button>
+            <div class="modal-body">
+                <h2>Termos de Uso</h2>
+                <h3>Objeto</h3>
+                <p>Este site tem como finalidade a divulgação de serviços profissionais de manutenção elétrica industrial, automação e painéis elétricos.</p>
+                <h3>Propriedade Intelectual</h3>
+                <p>Todo o conteúdo deste site (textos, imagens de projetos, logotipos e vídeos) é de propriedade exclusiva do profissional/empresa, sendo proibida qualquer reprodução ou uso sem autorização prévia.</p>
+                <h3>Responsabilidade Técnica</h3>
+                <p>As informações contidas no site são de caráter informativo. Orçamentos e execuções de serviços estão condicionados à análise técnica presencial e emissão de documentação pertinente (como TRT/ART). Não nos responsabilizamos por tentativas de manutenção feitas por terceiros baseadas em fotos ou descrições genéricas presentes neste site.</p>
+                <h3>Jurisdição</h3>
+                <p>Fica eleito o foro da comarca de Indaiatuba/SP para dirimir quaisquer questões relativas a estes termos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-lgpd">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal-lgpd')"><i data-lucide="x"></i></button>
+            <div class="modal-body">
+                <h2>Aviso Legal (LGPD)</h2>
+                <h3>Conformidade</h3>
+                <p>Este site opera em total conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).</p>
+                <h3>Consentimento</h3>
+                <p>Ao clicar no botão de WhatsApp ou preencher nossos formulários, você declara ciência de que seus dados serão processados para fins de atendimento comercial e técnico.</p>
+                <h3>Segurança em Campo</h3>
+                <p>Reforçamos que toda execução de serviço segue rigorosamente as normas NR-10, NR-12 e NR-35, garantindo a segurança do profissional e do patrimônio do cliente.</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1189,6 +1319,26 @@
             // Cria o link e abre em nova aba
             const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
             window.open(url, '_blank');
+        });
+
+        // Modal Logic
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeModal(overlay.id);
+                }
+            });
         });
     </script>
 </body>
