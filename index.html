@@ -709,6 +709,38 @@
             padding-top: 2rem;
             text-align: center;
             font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-legal {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal a {
+            color: var(--slate-400);
+            font-weight: 400;
+        }
+
+        .footer-legal a:hover {
+            color: var(--white);
+            text-decoration: none;
         }
 
         /* --- FAB Container --- */
@@ -859,10 +891,10 @@
             <div class="hero-content reveal">
                 <div class="badge">
                     <span class="dot"></span>
-                    Disponibilidade 24h para Emergências
+                    Atendimento: Seg a Sex 8h-17h | Sáb 8h-12h
                 </div>
                 <h1>PROBLEMAS ELÉTRICOS EM SUA INDÚSTRIA? <span>RESOLVEMOS AGORA.</span></h1>
-                <p>Especialistas em manutenção preditiva e performance técnica. Garantimos a continuidade operacional da sua planta com engenharia elétrica de alta precisão.</p>
+                <p>Especialistas em manutenção preventiva e performance técnica. Garantimos a continuidade operacional da sua planta com engenharia elétrica de alta precisão.</p>
                 <div class="hero-btns">
                     <a href="https://wa.me/5519997869520" class="btn btn-primary">
                         Orçamento via WhatsApp
@@ -887,7 +919,7 @@
             </div>
             <div class="trust-item reveal delay-200">
                 <div class="trust-icon"><i data-lucide="clock"></i></div>
-                <span>Atendimento 24h</span>
+                <span>Atendimento Ágil</span>
             </div>
             <div class="trust-item reveal delay-300">
                 <div class="trust-icon"><i data-lucide="hard-hat"></i></div>
@@ -905,8 +937,8 @@
             </div>
             <div class="services-grid">
                 <div class="service-card reveal">
-                    <i data-lucide="bar-chart-3" size="40"></i>
-                    <h3>Manutenção Preditiva</h3>
+                    <i data-lucide="activity" size="40"></i>
+                    <h3>Manutenção Preventiva</h3>
                     <p>Antecipamos falhas com análise termográfica e testes de isolamento para evitar paradas não programadas.</p>
                 </div>
                 <div class="service-card reveal delay-100">
@@ -1056,7 +1088,15 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Dario Eletricidade Industrial. Todos os direitos reservados.</p>
+            <p>&copy; 2026 Dario Eletricidade Industrial. Todos os direitos reservados.</p>
+            <p>Site Desenvolvido por <a href="https://www.orvalia.com.br" target="_blank" rel="noopener noreferrer">Orvalia Studio</a></p>
+            <div class="footer-legal">
+                <a href="#">Política de Privacidade</a>
+                <span>|</span>
+                <a href="#">Termos de Uso</a>
+                <span>|</span>
+                <a href="#">Aviso Legal (LGPD)</a>
+            </div>
         </div>
     </footer>
 
