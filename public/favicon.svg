@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+    <!-- Rounded background to make it visible and perfect in both dark and light browser tabs -->
+    <rect width="32" height="32" rx="7" fill="#0B192C"/>
+    
+    <!-- Technical industrial hexagon circuit frame -->
+    <polygon points="16,5 27,11 27,21 16,27 5,21 5,11" stroke="rgba(255, 107, 0, 0.45)" stroke-width="1.5" stroke-linejoin="round"/>
+    
+    <!-- Energetic lightning bolt representing electricity and power systems -->
+    <path d="M19,7 L11,16 L16,16 L13,25 L21,15 L16,15 Z" fill="#FF6B00" stroke="#FFFFFF" stroke-width="1" stroke-linejoin="round"/>
+    
+    <!-- Technical terminal connector/glowing node -->
+    <circle cx="16" cy="5" r="1.5" fill="#FFFFFF"/>
+</svg>
