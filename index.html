@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script>
+        // Patch window.fetch getter/setter to prevent "Cannot set property fetch of #<Window> which has only a getter" errors
+        (function() {
+            try {
+                var originalFetch = window.fetch;
+                var currentFetch = originalFetch;
+                Object.defineProperty(window, 'fetch', {
+                    get: function() {
+                        return currentFetch;
+                    },
+                    set: function(val) {
+                        currentFetch = val;
+                    },
+                    configurable: true,
+                    enumerable: true
+                });
+            } catch (e) {
+                console.warn('Unable to patch window.fetch:', e);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eletricista Industrial em Indaiatuba SP | Dario Eletricidade</title>
     <meta name="description" content="Manutenção elétrica industrial, automação e montagem de painéis elétricos em Indaiatuba, Campinas, Salto e Itu. Certificação NR10/NR35 com termografia.">
     <meta name="keywords" content="eletricista industrial Indaiatuba, manutenção elétrica industrial Indaiatuba, montagem de paineis eletricos Campinas, automacao industrial Indaiatuba SP, NR10 Indaiatuba, termografia em paineis eletricos, eletricista SP, adequação NR10 Salto, manutenção corretiva eletrica, manutencao preventiva industrial, comando eletrico Itu">
+    <link rel="canonical" href="https://www.darioeletricidade.com.br/">
     
     <!-- Open Graph for Social Networks -->
     <meta property="og:title" content="Dario Eletricidade Industrial | Manutenção em Indaiatuba SP">

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.darioeletricidade.com.br/sitemap.xml
